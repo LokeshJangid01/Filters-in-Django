@@ -5,6 +5,9 @@ from .forms import BookNameFilterForm
 from .models import Book
 from .filters import BookFilter
 from django.views.generic.list import ListView
+from rest_framework.generics import ListAPIView
+from .serializers import BookSerializers
+from django_filters.rest_framework import DjangoFilterBackend
 # Create your views here.
 def home(request):
     # name = request.GET.get('name')
@@ -38,3 +41,9 @@ class BookListView(ListView):
         context = super().get_context_data(**kwargs)
         context['form'] = self.filterset.form
         return context
+    
+class BookListApiView(ListAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializers
+    filter_backends = [DjangoFilterBackend]
+    filter_class = BookFilter
