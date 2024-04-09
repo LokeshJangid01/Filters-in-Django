@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <form method = "GET" action="{% url 'index' %}">
+  <form hx-get = "{% url 'index' %}" hx-target = "body">
     {{form.as_p}}
     <input type="submit" value="Submit" class="btn btn-primary">
   </form>

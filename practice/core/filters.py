@@ -1,8 +1,12 @@
 import django_filters
 from .models import Book
+from django import forms
 
 class BookFilter(django_filters.FilterSet):
     price = django_filters.RangeFilter()
+    genre = django_filters.MultipleChoiceFilter(choices = Book.GenreChoices.choices,
+                                                widget = forms.CheckboxSelectMultiple())
+
 
     class Meta:
         model = Book
@@ -10,5 +14,5 @@ class BookFilter(django_filters.FilterSet):
                    'name':['icontains'],
                    'author__name':['icontains'], 
                    
-                   'genre':['exact']
+                   
                 }
